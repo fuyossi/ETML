@@ -29,6 +29,8 @@ jobs:
           fi
 
           OUTPUT_NAME="etml-${TARGET_OS}-${TARGET_ARCH}${EXT}"
+
+          mkdir -p compiler/bin
           
           gcc -o "compiler/bin/${OUTPUT_NAME}" compiler/etml.c
 
