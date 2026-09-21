@@ -5,9 +5,9 @@
 
 \body
     \header
-    \endheader
+    \!header
     \main
-    \endmain
+    \!main
     \footer
-    \endfooter
-\endbody
+    \!footer
+\!body
