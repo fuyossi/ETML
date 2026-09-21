@@ -40,7 +40,7 @@ Token *new_token(TokenKind kind, Token *cur, char *str)
     tok->kind = kind;
     tok->str = str;
     cur->next = tok;
-    printf("New token %x has been created.\n", cur->next);
+    printf("New token %p has been created.\n", cur->next);
     return tok;
 }
 
@@ -63,18 +63,18 @@ Token *tokenize(char *p)
 
     while (*p)
     {
-        printf("tokenizing \"%c\", memory address: %x\n", *p, p);
+        printf("tokenizing \"%c\", memory address: %p.\n", *p, p);
         // 空白文字をスキップ
         if (!is_argument && isspace(*p))
         {
-            printf("Skipping tokenize \"%c\" because it's space, memory address: %x\n", *p, p);
+            printf("Skipping tokenize \"%c\" because it's space, memory address: %p.\n", *p, p);
             p++;
             continue;
         }
 
         if (*p == '\\' && !is_argument)
         {
-            printf("\"%c\" is a backslash so it will not be tokenized. Memory address: %x\n", *p, p);
+            printf("\"%c\" is a backslash so it will not be tokenized. Memory address: %p.\n", *p, p);
             is_command = true;
             is_first_command = true;
             if (is_text)
@@ -91,11 +91,11 @@ Token *tokenize(char *p)
 
         if (*p == '{' && is_command)
         {
-            printf("\"%c\" is a curly brackets so it will not be tokenized. Memory address: %x\n", *p, p);
+            printf("\"%c\" is a curly brackets so it will not be tokenized. Memory address: %p.\n", *p, p);
             is_command = false;
             is_argument = true;
             is_first_argument = true;
-            printf("Token length: %d\n", etml_command_length);
+            printf("Token length: %d.\n", etml_command_length);
             cur->len = etml_command_length;
             etml_command_length = 0;
             p++;
@@ -104,9 +104,9 @@ Token *tokenize(char *p)
 
         if (*p == '}' && is_argument)
         {
-            printf("\"%c\" is a curly brackets so it will not be tokenized. Memory address: %x\n", *p, p);
+            printf("\"%c\" is a curly brackets so it will not be tokenized. Memory address: %p.\n", *p, p);
             is_argument = false;
-            printf("Token length: %d\n", etml_argument_length);
+            printf("Token length: %d.\n", etml_argument_length);
             cur->len = etml_argument_length;
             etml_argument_length = 0;
             p++;
@@ -115,7 +115,7 @@ Token *tokenize(char *p)
 
         if (is_command && is_first_command)
         {
-            printf("\"%c\" is a type of command. Memory address: %x\n", *p, p);
+            printf("\"%c\" is a type of command. Memory address: %p.\n", *p, p);
             cur = new_token(TK_COMMAND, cur, p++);
             is_first_command = false;
             etml_command_length = 1;
@@ -124,7 +124,7 @@ Token *tokenize(char *p)
 
         if (is_command)
         {
-            printf("\"%c\" is a type of command. Memory address: %x\n", *p, p);
+            printf("\"%c\" is a type of command. Memory address: %p.\n", *p, p);
             etml_command_length++;
             p++;
             continue;
@@ -132,7 +132,7 @@ Token *tokenize(char *p)
 
         if (is_argument && is_first_argument)
         {
-            printf("\"%c\" is a type of argument. Memory address: %x\n", *p, p);
+            printf("\"%c\" is a type of argument. Memory address: %p.\n", *p, p);
             cur = new_token(TK_ARG, cur, p++);
             is_first_argument = false;
             etml_argument_length = 1;
@@ -141,7 +141,7 @@ Token *tokenize(char *p)
 
         if (is_argument)
         {
-            printf("\"%c\" is a type of argument. Memory address: %x\n", *p, p);
+            printf("\"%c\" is a type of argument. Memory address: %p.\n", *p, p);
             etml_argument_length++;
             p++;
             continue;
@@ -149,7 +149,7 @@ Token *tokenize(char *p)
 
         if (is_first_text)
         {
-            printf("\"%c\" is a type of text. Memory address: %x\n", *p, p);
+            printf("\"%c\" is a type of text. Memory address: %p.\n", *p, p);
             cur = new_token(TK_TEXT, cur, p++);
             is_text = true;
             is_first_text = false;
@@ -157,7 +157,7 @@ Token *tokenize(char *p)
             continue;
         }
 
-        printf("\"%c\" is a type of text. Memory address: %x\n", *p, p);
+        printf("\"%c\" is a type of text. Memory address: %p.\n", *p, p);
         etml_text_length++;
         p++;
     }
@@ -166,19 +166,19 @@ Token *tokenize(char *p)
     {
         is_text = false;
         is_first_text = true;
-        printf("Token length: %d\n", etml_text_length);
+        printf("Token length: %d.\n", etml_text_length);
         cur->len = etml_text_length;
         etml_text_length = 0;
     }
 
-    printf("Memory address %x is the end of user-input argument.\n", p);
+    printf("Memory address %p is the end of user-input argument.\n", p);
     new_token(TK_EOF, cur, p);
     return head.next;
 }
 
 char *read_token_str(char *str, size_t len)
 {
-    printf("Reading address %x with length %d.\n", str, len);
+    printf("Reading address %p with length %zu.\n", str, len);
     char *token_str = calloc(len + 1, sizeof(char));
     if (token_str == NULL)
     {
@@ -197,9 +197,9 @@ char *append_string(char *dest, char *src)
     size_t dest_len = (dest != NULL) ? strlen(dest) : 0;
     size_t src_len = strlen(src);
     size_t new_size = dest_len + src_len + 1;
-    printf("Previous variable length: %d\n", dest_len);
-    printf("String length: %d\n", src_len);
-    printf("New variable length: %d\n", new_size);
+    printf("Previous variable length: %zu.\n", dest_len);
+    printf("String length: %zu.\n", src_len);
+    printf("New variable length: %zu.\n", new_size);
 
     // 領域を拡大（dest が NULL のときは malloc と同等の動作）
     char *temp = realloc(dest, new_size);
@@ -208,7 +208,7 @@ char *append_string(char *dest, char *src)
         fprintf(stderr, "Failed to allocate the memory. Insufficient memory.\n");
         exit(1);
     }
-    printf("Temp veriable address: %x.\n", &temp);
+    printf("Temp veriable address: %p.\n", &temp);
     dest = temp;
 
     // 初回の場合は空文字で初期化しておく
@@ -219,7 +219,7 @@ char *append_string(char *dest, char *src)
 
     // 末尾に追加
     memcpy(dest + dest_len, src, src_len + 1);
-    printf("New memory address: %x.\n", &dest);
+    printf("New memory address: %p.\n", &dest);
     return dest;
 }
 
@@ -241,7 +241,7 @@ void reset_var(char **str_ptr)
 
     // 新しいアドレス（移動している可能性を考慮）を反映
     *str_ptr = temp;
-    printf("New memory address: %x", &*str_ptr);
+    printf("New memory address: %p.\n", &*str_ptr);
 
     // 先頭を終端文字にして空文字列にする
     (*str_ptr)[0] = '\0';
