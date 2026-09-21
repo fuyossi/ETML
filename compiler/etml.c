@@ -249,6 +249,54 @@ void reset_var(char **str_ptr)
     return;
 }
 
+char *html_lang = NULL;
+char *html_title = NULL;
+char *html_description = NULL;
+char *html_viewport = NULL;
+
+char *etml_command = NULL;
+char *etml_arg = NULL;
+
+bool is_str_same(char *str1, char *str2)
+{
+    if (strcmp(str1, str2) == 0)
+    {
+        return true;
+    }
+
+    return false;
+}
+
+void command_lookup()
+{
+    if (is_str_same(etml_command, "lang"))
+    {
+        reset_var(&html_lang);
+        html_lang = append_string(html_lang, etml_arg);
+    }
+
+    if (is_str_same(etml_command, "title"))
+    {
+        reset_var(&html_title);
+        html_title = append_string(html_title, etml_arg);
+    }
+
+    if (is_str_same(etml_command, "description"))
+    {
+        reset_var(&html_description);
+        html_description = append_string(html_description, etml_arg);
+    }
+
+    if (is_str_same(etml_command, "viewport"))
+    {
+        reset_var(&html_viewport);
+        html_viewport = append_string(html_viewport, etml_arg);
+    }
+
+    reset_var(&etml_command);
+    reset_var(&etml_arg);
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 2)
@@ -260,26 +308,31 @@ int main(int argc, char **argv)
     // トークナイズする
     token = tokenize(argv[1]);
 
-    char *html_lang = NULL;
     html_lang = append_string(html_lang, "en");
-
-    char *etml_arg = NULL;
+    html_title = append_string(html_title, "");
+    html_description = append_string(html_description, "");
+    html_viewport = append_string(html_viewport, "width=device-width,initial-scale=1");
 
     while (!at_eof())
     {
+        if (token->kind == TK_COMMAND)
+        {
+            printf("Reading the token type of TK_COMMAND. Token length: %d.\n", token->len);
+            printf("Adding string \"%s\".\n", read_token_str(token->str, token->len));
+            etml_command = append_string(etml_command, read_token_str(token->str, token->len));
+            token = token->next;
+
+            continue;
+        }
+
         if (token->kind == TK_ARG)
         {
             printf("Reading the token type of TK_ARG. Token length: %d.\n", token->len);
             printf("Adding string \"%s\".\n", read_token_str(token->str, token->len));
             etml_arg = append_string(etml_arg, read_token_str(token->str, token->len));
+            command_lookup();
             token = token->next;
-            if (token->kind != TK_ARG)
-            {
-                reset_var(&html_lang);
-                html_lang = append_string(html_lang, etml_arg);
-                reset_var(&etml_arg);
-                printf("Readed argument \"%s\".\n", html_lang);
-            }
+
             continue;
         }
 
@@ -291,9 +344,9 @@ int main(int argc, char **argv)
     printf("\n");
     printf("<head>\n");
     printf("    <meta charset=\"utf-8\">\n");
-    printf("    <title></title>\n");
-    printf("    <meta name=\"description\" content=\"\">\n");
-    printf("    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n");
+    printf("    <title>%s</title>\n", html_title);
+    printf("    <meta name=\"description\" content=\"%s\">\n", html_description);
+    printf("    <meta name=\"viewport\" content=\"%s\">\n", html_viewport);
     printf("</head>\n");
     printf("\n");
     printf("<body>\n");
