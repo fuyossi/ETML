@@ -1,13 +1,13 @@
-\lang{ja}
-\title{example001}
-\description{example001}
-\viewport{}
+/lang{ja}
+/title{example001}
+/description{example001}
+/viewport{}
 
-\body
+/body
+    /header
     \header
-    \!header
+    /main
     \main
-    \!main
+    /footer
     \footer
-    \!footer
-\!body
+\body
