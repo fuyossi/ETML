@@ -72,9 +72,9 @@ Token *tokenize(char *p)
             continue;
         }
 
-        if (*p == '\\' && !is_argument)
+        if (*p == '/' && !is_argument)
         {
-            printf("\"%c\" is a backslash so it will not be tokenized. Memory address: %p.\n", *p, p);
+            printf("\"%c\" is a slash so it will not be tokenized. Memory address: %p.\n", *p, p);
             is_command = true;
             is_first_command = true;
             if (is_text)
