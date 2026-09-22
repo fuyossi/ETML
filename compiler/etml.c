@@ -106,10 +106,17 @@ Token *tokenize(char *p)
         {
             printf("\"%c\" is a curly brackets so it will not be tokenized. Memory address: %p.\n", *p, p);
             is_argument = false;
-            printf("Token length: %d.\n", etml_argument_length);
-            cur->len = etml_argument_length;
-            etml_argument_length = 0;
+            if (is_first_argument)
+            {
+                is_first_argument = false;
+            } else {
+                printf("Token length: %d.\n", etml_argument_length);
+                cur->len = etml_argument_length;
+                etml_argument_length = 0;
+            }
+
             p++;
+
             continue;
         }
 
@@ -160,6 +167,14 @@ Token *tokenize(char *p)
         printf("\"%c\" is a type of text. Memory address: %p.\n", *p, p);
         etml_text_length++;
         p++;
+    }
+
+    if (is_command)
+    {
+        is_command = false;
+        printf("Token length: %d.\n", etml_command_length);
+        cur->len = etml_command_length;
+        etml_command_length = 0;
     }
 
     if (is_text)
@@ -271,26 +286,36 @@ void command_lookup()
 {
     if (is_str_same(etml_command, "lang"))
     {
+        if (is_str_same(etml_arg, ""))
+        {
+            fprintf(stderr, "Argument is required at lang command but no argument found.\n");
+            exit(1);
+        }
         reset_var(&html_lang);
         html_lang = append_string(html_lang, etml_arg);
     }
 
     if (is_str_same(etml_command, "title"))
     {
-        reset_var(&html_title);
-        html_title = append_string(html_title, etml_arg);
+        if (!is_str_same(etml_arg, ""))
+        {
+            html_title = append_string(html_title, etml_arg);
+        }
     }
 
     if (is_str_same(etml_command, "description"))
     {
-        reset_var(&html_description);
         html_description = append_string(html_description, etml_arg);
     }
 
     if (is_str_same(etml_command, "viewport"))
     {
-        reset_var(&html_viewport);
-        html_viewport = append_string(html_viewport, etml_arg);
+        if (is_str_same(etml_arg, ""))
+        {
+            html_viewport = append_string(html_viewport, "width=device-width,initial-scale=1");
+        } else {
+            html_viewport = append_string(html_viewport, etml_arg);
+        }
     }
 
     reset_var(&etml_command);
@@ -310,8 +335,9 @@ int main(int argc, char **argv)
 
     html_lang = append_string(html_lang, "en");
     html_title = append_string(html_title, "");
-    html_description = append_string(html_description, "");
-    html_viewport = append_string(html_viewport, "width=device-width,initial-scale=1");
+
+    etml_command = append_string(etml_command, "");
+    etml_arg = append_string(etml_arg, "");
 
     while (!at_eof())
     {
@@ -321,6 +347,10 @@ int main(int argc, char **argv)
             printf("Adding string \"%s\".\n", read_token_str(token->str, token->len));
             etml_command = append_string(etml_command, read_token_str(token->str, token->len));
             token = token->next;
+            if (token->kind != TK_ARG)
+            {
+                command_lookup();
+            }
 
             continue;
         }
@@ -345,8 +375,14 @@ int main(int argc, char **argv)
     printf("<head>\n");
     printf("    <meta charset=\"utf-8\">\n");
     printf("    <title>%s</title>\n", html_title);
-    printf("    <meta name=\"description\" content=\"%s\">\n", html_description);
-    printf("    <meta name=\"viewport\" content=\"%s\">\n", html_viewport);
+    if (html_description)
+    {
+        printf("    <meta name=\"description\" content=\"%s\">\n", html_description);
+    }
+    if (html_viewport)
+    {
+        printf("    <meta name=\"viewport\" content=\"%s\">\n", html_viewport);
+    }
     printf("</head>\n");
     printf("\n");
     printf("<body>\n");
