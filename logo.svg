@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1500"
+   height="500"
+   viewBox="0 0 396.875 132.29167"
+   version="1.1"
+   id="svg1"
+   xml:space="preserve"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+     id="defs1" /><g
+     id="layer1"><rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0"
+       id="rect3"
+       width="396.875"
+       height="132.29167"
+       x="2.4999999e-06"
+       y="-1.7097982e-06" /><g
+       id="layer1-2"><rect
+         style="fill:#ffffff;stroke:#ffffff;stroke-width:0"
+         id="rect1"
+         width="132.29167"
+         height="132.29167"
+         x="-3.376465e-06"
+         y="-3.376465e-06" /><rect
+         style="fill:#3cb371;fill-opacity:1;stroke:#ffffff;stroke-width:0"
+         id="rect2"
+         width="105.83333"
+         height="105.83333"
+         x="13.229168"
+         y="13.229168" /><path
+         style="font-size:141.111px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#ffffff;stroke:#ffffff;stroke-width:0"
+         d="m 52.709971,24.529116 v 36.931393 h 20.532752 q 7.992615,0 10.679787,-2.411565 3.582896,-3.169485 3.996307,-11.1621 h 2.549369 V 80.408518 H 87.918817 Q 86.954191,73.587234 85.989565,71.657983 84.749332,69.246418 81.924356,67.868381 79.09938,66.490344 73.242723,66.490344 H 52.709971 v 30.799127 q 0,6.201169 0.551215,7.579209 0.551215,1.30913 1.929252,2.13595 1.378037,0.75792 5.23654,0.75792 h 15.847426 q 7.923713,0 11.506609,-1.10243 3.582897,-1.10243 6.890186,-4.34081 4.271914,-4.271918 8.750531,-12.88465 h 2.75608 l -8.061519,23.42663 H 26.113856 v -2.54937 h 3.307289 q 3.307289,0 6.270069,-1.58474 2.204859,-1.10243 2.962779,-3.30729 0.826822,-2.20486 0.826822,-9.026143 V 35.691216 q 0,-8.888339 -1.791448,-10.955394 -2.480466,-2.756075 -8.268222,-2.756075 h -3.307289 v -2.549368 h 72.002435 l 1.033528,20.46385 H 96.462647 Q 95.015708,32.521731 93.22426,29.765657 91.501713,27.009583 88.056621,25.562644 85.300547,24.529116 78.34146,24.529116 Z"
+         id="text1"
+         aria-label="E" /><path
+         style="font-size:105.833px;font-family:'Zen Dots';-inkscape-font-specification:'Zen Dots';fill:#ffa500;stroke:#ffffff;stroke-width:0"
+         d="M 19.843837,115.67564 69.585348,16.615951 H 83.237805 L 33.496294,115.67564 Z"
+         id="text2"
+         aria-label="/" /></g><text
+       xml:space="preserve"
+       style="font-size:105.833px;font-family:'Zen Dots';-inkscape-font-specification:'Zen Dots';writing-mode:lr-tb;direction:ltr;fill:#ffffff;stroke:#ffffff;stroke-width:0"
+       x="132.29167"
+       y="99.747826"
+       id="text3"><tspan
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:105.833px;font-family:'Racing Sans One';-inkscape-font-specification:'Racing Sans One';fill:#228b22;fill-opacity:1;stroke-width:0"
+         x="132.29167"
+         y="99.747826">ETML</tspan></text></g></svg>
