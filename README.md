@@ -1,7 +1,7 @@
 # ETML (Easy Text Markup Language)
 [![license](https://img.shields.io/badge/license-MIT-blue)](https://github.com/fuyossi/ETML/blob/main/LICENSE)  
 <img src="https://github.com/fuyossi/ETML/raw/refs/heads/main/logo.svg" width="300px">  
-**This language and compiler is under development. Specification may be changed since future release.**  
+**This language and compiler is under development. Specification may be changed before future release.**  
   
 This language is made to write HTML more easily.
 
